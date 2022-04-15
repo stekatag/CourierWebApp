@@ -1,14 +1,13 @@
-﻿@using Microsoft.AspNetCore.Mvc.Rendering
-@model IEnumerable<CourierWebApp.Models.Delivery>
+﻿@model IEnumerable<CourierWebApp.Models.Delivery>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Доставки</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Добави нова доставка</a>
 </p>
 <table class="table">
     <thead>
@@ -17,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-	            @Html.DropDownListFor("values", "Select a value", new SelectList("Qty" ))
+                @Html.DisplayNameFor(model => model.Unit)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Price)
@@ -38,7 +37,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Unit)
+                @Html.DisplayFor(modelItem => item.Unit.Unit)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)

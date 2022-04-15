@@ -13,6 +13,7 @@ namespace CourierWebApp.Data
             : base(options)
         {
         }
-        public DbSet<CourierWebApp.Models.Delivery> Delivery { get; set; }
+        public DbSet<Delivery> Delivery { get; set; }
+        public DbSet<Units> Unit { get; set; }
     }
 }

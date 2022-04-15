@@ -11,23 +11,23 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CourierWebApp.Controllers
 {
-    public class DeliveriesController : Controller
+    public class UnitsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public DeliveriesController(ApplicationDbContext context)
+        public UnitsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Deliveries
+        // GET: Units
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Delivery.Include(d => d.Unit);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.Unit.ToListAsync());
         }
 
-        // GET: Deliveries/Details/5
+        // GET: Units/Details/5
         [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
@@ -36,44 +36,40 @@ namespace CourierWebApp.Controllers
                 return NotFound();
             }
 
-            var delivery = await _context.Delivery
-                .Include(d => d.Unit)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (delivery == null)
+            var units = await _context.Unit
+                .FirstOrDefaultAsync(m => m.UnitId == id);
+            if (units == null)
             {
                 return NotFound();
             }
 
-            return View(delivery);
+            return View(units);
         }
 
-        // GET: Deliveries/Create
+        // GET: Units/Create
         [Authorize]
         public IActionResult Create()
         {
-            ViewData["UnitId"] = new SelectList(_context.Unit, "UnitId", "Unit");
             return View();
         }
 
-        // POST: Deliveries/Create
+        // POST: Units/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,UnitId,Price,Courier,Date")] Delivery delivery)
+        public async Task<IActionResult> Create([Bind("UnitId,Unit")] Units units)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(delivery);
+                _context.Add(units);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UnitId"] = new SelectList(_context.Unit, "UnitId", "Unit", delivery.UnitId);
-            return View(delivery);
+            return View(units);
         }
 
-        // GET: Deliveries/Edit/5
+        // GET: Units/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,23 +77,22 @@ namespace CourierWebApp.Controllers
                 return NotFound();
             }
 
-            var delivery = await _context.Delivery.FindAsync(id);
-            if (delivery == null)
+            var units = await _context.Unit.FindAsync(id);
+            if (units == null)
             {
                 return NotFound();
             }
-            ViewData["UnitId"] = new SelectList(_context.Unit, "UnitId", "Unit", delivery.UnitId);
-            return View(delivery);
+            return View(units);
         }
 
-        // POST: Deliveries/Edit/5
+        // POST: Units/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,UnitId,Price,Courier,Date")] Delivery delivery)
+        public async Task<IActionResult> Edit(int? id, [Bind("UnitId,Unit")] Units units)
         {
-            if (id != delivery.Id)
+            if (id != units.UnitId)
             {
                 return NotFound();
             }
@@ -106,12 +101,12 @@ namespace CourierWebApp.Controllers
             {
                 try
                 {
-                    _context.Update(delivery);
+                    _context.Update(units);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DeliveryExists(delivery.Id))
+                    if (!UnitsExists(units.UnitId))
                     {
                         return NotFound();
                     }
@@ -122,11 +117,10 @@ namespace CourierWebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UnitId"] = new SelectList(_context.Unit, "UnitId", "Unit", delivery.UnitId);
-            return View(delivery);
+            return View(units);
         }
 
-        // GET: Deliveries/Delete/5
+        // GET: Units/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,31 +128,30 @@ namespace CourierWebApp.Controllers
                 return NotFound();
             }
 
-            var delivery = await _context.Delivery
-                .Include(d => d.Unit)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (delivery == null)
+            var units = await _context.Unit
+                .FirstOrDefaultAsync(m => m.UnitId == id);
+            if (units == null)
             {
                 return NotFound();
             }
 
-            return View(delivery);
+            return View(units);
         }
 
-        // POST: Deliveries/Delete/5
+        // POST: Units/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            var delivery = await _context.Delivery.FindAsync(id);
-            _context.Delivery.Remove(delivery);
+            var units = await _context.Unit.FindAsync(id);
+            _context.Unit.Remove(units);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DeliveryExists(int id)
+        private bool UnitsExists(int? id)
         {
-            return _context.Delivery.Any(e => e.Id == id);
+            return _context.Unit.Any(e => e.UnitId == id);
         }
     }
 }
