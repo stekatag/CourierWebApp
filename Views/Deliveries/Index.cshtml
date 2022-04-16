@@ -19,9 +19,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Unit)
-            </th>
+	        <th>
+		        @Html.DisplayNameFor(model => model.Unit)
+	        </th>
+	        <th>
+		        @Html.DisplayNameFor(model => model.Quantity)
+	        </th>
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
@@ -40,9 +43,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Unit.Unit)
-            </td>
+	        <td>
+		        @Html.DisplayFor(modelItem => item.Unit.Unit)
+	        </td>
+	        <td>
+		        @Html.DisplayFor(modelItem => item.Quantity)
+	        </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
@@ -53,9 +59,9 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Детайли</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Изтрий</a>
             </td>
         </tr>
 }

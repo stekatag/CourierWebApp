@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Детайли</h1>
 
 <div>
     <h4>Доставки</h4>
@@ -19,9 +19,15 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Unit)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Unit.Unit)
-        </dd>
+	    <dd class = "col-sm-10">
+		    @Html.DisplayFor(model => model.Unit.Unit)
+	    </dd>
+	    <dt class = "col-sm-2">
+		    @Html.DisplayNameFor(model => model.Quantity)
+	    </dt>
+	    <dd class = "col-sm-10">
+		    @Html.DisplayFor(model => model.Quantity)
+	    </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Price)
         </dt>
