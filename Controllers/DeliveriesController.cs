@@ -21,6 +21,7 @@ namespace CourierWebApp.Controllers
         }
 
         // GET: Deliveries
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Delivery.Include(d => d.Unit);
