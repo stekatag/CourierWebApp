@@ -1,0 +1,27 @@
+﻿@model CourierWebApp.Models.Units
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Изтрий</h1>
+
+<h3>Сигурни ли сте, че искате да го направите?</h3>
+<div>
+    <h4>Units</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Unit)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Unit)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="UnitId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

@@ -28,7 +28,6 @@ namespace CourierWebApp.Controllers
         }
 
         // GET: Deliveries/Details/5
-        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -61,7 +60,7 @@ namespace CourierWebApp.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,UnitId,Price,Courier,Date")] Delivery delivery)
+        public async Task<IActionResult> Create([Bind("Id,Name,UnitId,Price,Courier,Date,Quantity")] Delivery delivery)
         {
             if (ModelState.IsValid)
             {
@@ -74,6 +73,7 @@ namespace CourierWebApp.Controllers
         }
 
         // GET: Deliveries/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -93,9 +93,10 @@ namespace CourierWebApp.Controllers
         // POST: Deliveries/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,UnitId,Price,Courier,Date")] Delivery delivery)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,UnitId,Price,Courier,Date,Quantity")] Delivery delivery)
         {
             if (id != delivery.Id)
             {
@@ -127,6 +128,7 @@ namespace CourierWebApp.Controllers
         }
 
         // GET: Deliveries/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -146,6 +148,7 @@ namespace CourierWebApp.Controllers
         }
 
         // POST: Deliveries/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
