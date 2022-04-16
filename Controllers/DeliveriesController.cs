@@ -28,7 +28,22 @@ namespace CourierWebApp.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        // GET Deliveries/ShowSearchForm
+        [Authorize]
+        public async Task<IActionResult> ShowSearchForm()
+        {
+            return View();
+        }
+
+        // POST Deliveries/ShowSearchResults
+        [Authorize]
+        public async Task<IActionResult> ShowSearchResults(String SearchPhrase)
+        {
+            return View("Index", await _context.Delivery.Where( d => d.Name.Contains(SearchPhrase)).ToListAsync());
+        }
+
         // GET: Deliveries/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
