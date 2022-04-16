@@ -1,5 +1,6 @@
 # C# Competition Assignment
 ASP.NET Web App - Express Services
+Minimum .NET 5.0 Core (Runtime)
 
 ## За проекта
 Здравейте, казвам се Стефан и това е моето уеб приложение Express Services
