@@ -29,21 +29,7 @@ namespace CourierWebApp.Controllers
         {
             return View();
         }
-
-        //private readonly UserManager<ApplicationUser> userManager;
-
-        //public AdministrationController(UserManager<ApplicationUser> userManager)
-        //{
-        //    this.userManager = userManager;
-        //}
-
-        //[HttpGet]
-        //public IActionResult ListUsers()
-        //{
-        //    var users = userManager.Users;
-        //    return View(users);
-        //}
-
+        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
