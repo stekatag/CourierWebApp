@@ -5,8 +5,12 @@
 <div class="text-center">
     <h1 class="display-4 main-header">Добре дошли!</h1>
 	<p>Вие сте в системата на Express Services.</p>
-
-	<a class="btn btn-primary" asp-area="" asp-controller="Deliveries" asp-action="Index">Доставки</a>
+	
+	<div class="btns-container">
+		<a class="btn btn-primary btn-first" asp-area="" asp-controller="Deliveries" asp-action="Index">Доставки</a>
+		<a class="btn btn-primary" asp-area="" asp-controller="Deliveries" asp-action="ShowSearchForm">Търсене</a>
+	</div>
+	
 	<div class="image-container">
 		<img class="courier-img" src="courier.svg" alt="Courier"/>
 	</div>

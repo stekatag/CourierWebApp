@@ -4,6 +4,10 @@ for details on configuring this project to bundle and minify static web assets. 
     margin: 2rem 0;
 }
 
+.btn-first {
+    margin-right: 0.5rem;
+}
+
 .courier-img {
     margin-top: 2rem;
     max-width: 24rem;
