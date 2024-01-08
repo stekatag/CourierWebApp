@@ -12,22 +12,22 @@ using Microsoft.AspNetCore.Authorization;
 namespace CourierWebApp.Controllers
 {
     [Authorize]
-    public class UnitsController : Controller
+    public class ItemsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public UnitsController(ApplicationDbContext context)
+        public ItemsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Units
+        // GET: Items
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Unit.ToListAsync());
+            return View(await _context.Item.ToListAsync());
         }
 
-        // GET: Units/Details/5
+        // GET: Items/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,39 +35,39 @@ namespace CourierWebApp.Controllers
                 return NotFound();
             }
 
-            var units = await _context.Unit
-                .FirstOrDefaultAsync(m => m.UnitId == id);
-            if (units == null)
+            var item = await _context.Item
+                .FirstOrDefaultAsync(m => m.ItemId == id);
+            if (item == null)
             {
                 return NotFound();
             }
 
-            return View(units);
+            return View(item);
         }
 
-        // GET: Units/Create
+        // GET: Items/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Units/Create
+        // POST: Items/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UnitId,Unit")] Units units)
+        public async Task<IActionResult> Create([Bind("ItemId,Name,Description")] Item item)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(units);
+                _context.Add(item);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(units);
+            return View(item);
         }
 
-        // GET: Units/Edit/5
+        // GET: Items/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -75,22 +75,22 @@ namespace CourierWebApp.Controllers
                 return NotFound();
             }
 
-            var units = await _context.Unit.FindAsync(id);
-            if (units == null)
+            var item = await _context.Item.FindAsync(id);
+            if (item == null)
             {
                 return NotFound();
             }
-            return View(units);
+            return View(item);
         }
 
-        // POST: Units/Edit/5
+        // POST: Items/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id, [Bind("UnitId,Unit")] Units units)
+        public async Task<IActionResult> Edit(int? id, [Bind("ItemId,Name,Description")] Item item)
         {
-            if (id != units.UnitId)
+            if (id != item.ItemId)
             {
                 return NotFound();
             }
@@ -99,12 +99,12 @@ namespace CourierWebApp.Controllers
             {
                 try
                 {
-                    _context.Update(units);
+                    _context.Update(item);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UnitsExists(units.UnitId))
+                    if (!ItemExists(item.ItemId))
                     {
                         return NotFound();
                     }
@@ -115,10 +115,10 @@ namespace CourierWebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(units);
+            return View(item);
         }
 
-        // GET: Units/Delete/5
+        // GET: Items/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -126,30 +126,34 @@ namespace CourierWebApp.Controllers
                 return NotFound();
             }
 
-            var units = await _context.Unit
-                .FirstOrDefaultAsync(m => m.UnitId == id);
-            if (units == null)
+            var item = await _context.Item
+                .FirstOrDefaultAsync(m => m.ItemId == id);
+            if (item == null)
             {
                 return NotFound();
             }
 
-            return View(units);
+            return View(item);
         }
 
-        // POST: Units/Delete/5
+        // POST: Items/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            var units = await _context.Unit.FindAsync(id);
-            _context.Unit.Remove(units);
+            var item = await _context.Item.FindAsync(id);
+            if (item != null)
+            {
+                _context.Item.Remove(item);
+            }
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UnitsExists(int? id)
+        private bool ItemExists(int? id)
         {
-            return _context.Unit.Any(e => e.UnitId == id);
+            return _context.Item.Any(e => e.ItemId == id);
         }
     }
 }

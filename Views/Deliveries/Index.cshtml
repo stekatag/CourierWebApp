@@ -4,32 +4,28 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Доставки</h1>
+<h1>Index</h1>
 
 <p>
-	<a asp-action="Create">Добави нова доставка</a>
-</p>
-
-<p>
-	<a asp-controller="Units" asp-action="Index">Добави мерна единица</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Customer)
             </th>
-	        <th>
-		        @Html.DisplayNameFor(model => model.Unit)
-	        </th>
-	        <th>
-		        @Html.DisplayNameFor(model => model.Quantity)
-	        </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Unit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Courier)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Date)
@@ -41,27 +37,27 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Customer.CustomerEmail)
             </td>
-	        <td>
-		        @Html.DisplayFor(modelItem => item.Unit.Unit)
-	        </td>
-	        <td>
-		        @Html.DisplayFor(modelItem => item.Quantity)
-	        </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Unit.Unit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Courier)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Детайли</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Изтрий</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

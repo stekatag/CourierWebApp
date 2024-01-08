@@ -12,22 +12,22 @@ using Microsoft.AspNetCore.Authorization;
 namespace CourierWebApp.Controllers
 {
     [Authorize]
-    public class UnitsController : Controller
+    public class CustomersController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public UnitsController(ApplicationDbContext context)
+        public CustomersController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Units
+        // GET: Customers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Unit.ToListAsync());
+            return View(await _context.Customer.ToListAsync());
         }
 
-        // GET: Units/Details/5
+        // GET: Customers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,39 +35,39 @@ namespace CourierWebApp.Controllers
                 return NotFound();
             }
 
-            var units = await _context.Unit
-                .FirstOrDefaultAsync(m => m.UnitId == id);
-            if (units == null)
+            var customer = await _context.Customer
+                .FirstOrDefaultAsync(m => m.CustomerId == id);
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return View(units);
+            return View(customer);
         }
 
-        // GET: Units/Create
+        // GET: Customers/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Units/Create
+        // POST: Customers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UnitId,Unit")] Units units)
+        public async Task<IActionResult> Create([Bind("CustomerId,CustomerName,CustomerEmail")] Customer customer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(units);
+                _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(units);
+            return View(customer);
         }
 
-        // GET: Units/Edit/5
+        // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -75,22 +75,22 @@ namespace CourierWebApp.Controllers
                 return NotFound();
             }
 
-            var units = await _context.Unit.FindAsync(id);
-            if (units == null)
+            var customer = await _context.Customer.FindAsync(id);
+            if (customer == null)
             {
                 return NotFound();
             }
-            return View(units);
+            return View(customer);
         }
 
-        // POST: Units/Edit/5
+        // POST: Customers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id, [Bind("UnitId,Unit")] Units units)
+        public async Task<IActionResult> Edit(int? id, [Bind("CustomerId,CustomerName,CustomerEmail")] Customer customer)
         {
-            if (id != units.UnitId)
+            if (id != customer.CustomerId)
             {
                 return NotFound();
             }
@@ -99,12 +99,12 @@ namespace CourierWebApp.Controllers
             {
                 try
                 {
-                    _context.Update(units);
+                    _context.Update(customer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UnitsExists(units.UnitId))
+                    if (!CustomerExists(customer.CustomerId))
                     {
                         return NotFound();
                     }
@@ -115,10 +115,10 @@ namespace CourierWebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(units);
+            return View(customer);
         }
 
-        // GET: Units/Delete/5
+        // GET: Customers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -126,30 +126,34 @@ namespace CourierWebApp.Controllers
                 return NotFound();
             }
 
-            var units = await _context.Unit
-                .FirstOrDefaultAsync(m => m.UnitId == id);
-            if (units == null)
+            var customer = await _context.Customer
+                .FirstOrDefaultAsync(m => m.CustomerId == id);
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return View(units);
+            return View(customer);
         }
 
-        // POST: Units/Delete/5
+        // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            var units = await _context.Unit.FindAsync(id);
-            _context.Unit.Remove(units);
+            var customer = await _context.Customer.FindAsync(id);
+            if (customer != null)
+            {
+                _context.Customer.Remove(customer);
+            }
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UnitsExists(int? id)
+        private bool CustomerExists(int? id)
         {
-            return _context.Unit.Any(e => e.UnitId == id);
+            return _context.Customer.Any(e => e.CustomerId == id);
         }
     }
 }
