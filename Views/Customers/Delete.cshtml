@@ -24,6 +24,13 @@
             @Html.DisplayFor(model => model.CustomerEmail)
         </dd>
     </dl>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["ErrorMessage"]
+        </div>
+    }
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="CustomerId" />

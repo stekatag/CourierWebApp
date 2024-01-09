@@ -24,6 +24,13 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
     </dl>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["ErrorMessage"]
+        </div>
+    }
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="ItemId" />

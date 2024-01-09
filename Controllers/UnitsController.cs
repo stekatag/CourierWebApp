@@ -142,8 +142,21 @@ namespace CourierWebApp.Controllers
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {
             var units = await _context.Unit.FindAsync(id);
-            _context.Unit.Remove(units);
-            await _context.SaveChangesAsync();
+            if(units != null)
+            {
+                // Check if the customer is associated with any deliveries
+                var hasDeliveries = _context.Delivery.Any(d => d.UnitId == id);
+                if (hasDeliveries)
+                {
+                    // If there are deliveries, do not delete the customer
+                    // Instead, return a view with a message indicating the issue
+                    TempData["ErrorMessage"] = "You can't delete this unit as there are existing deliveries associated with this unit.";
+                    return View("Delete", units);
+                }
+
+                _context.Unit.Remove(units);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
 

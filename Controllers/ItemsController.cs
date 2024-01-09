@@ -144,10 +144,19 @@ namespace CourierWebApp.Controllers
             var item = await _context.Item.FindAsync(id);
             if (item != null)
             {
-                _context.Item.Remove(item);
-            }
+                // Check if the customer is associated with any deliveries
+                var hasDeliveries = _context.Delivery.Any(d => d.ItemId == id);
+                if (hasDeliveries)
+                {
+                    // If there are deliveries, do not delete the customer
+                    // Instead, return a view with a message indicating the issue
+                    TempData["ErrorMessage"] = "You can't delete this item as there are existing deliveries associated with this item.";
+                    return View("Delete", item);
+                }
 
-            await _context.SaveChangesAsync();
+                _context.Item.Remove(item);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
 
