@@ -1,17 +1,45 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    var isAuth = User.Identity.IsAuthenticated;
 }
 
 <div class="text-center">
-    <h1 class="display-4 main-header">Welcome!</h1>
-	<p>Вие сте в системата на Express Services.</p>
-	
-	<div>
-		<a class="btn btn-primary btn-first" asp-area="" asp-controller="Deliveries" asp-action="Index">🚚 Deliveries
-		</a>
-		<a class="btn btn-primary" asp-area="" asp-controller="Deliveries" asp-action="ShowSearchForm">🔍 Search Delivery
-		</a>
-	</div>
+    <h1 class="display-4 main-header">DeliverMate Logistics</h1>
+    <h3>Hello, @(isAuth ? User.Identity.Name : "annonymous")</h3>
+    @if (!isAuth)
+    {
+        <p class="mb-4">Before accessing the system, you need to login or register</p>
+    }
+    else
+    {
+        <p class="mb-4">Explore your dashboard to manage deliveries, customers, and items. </p>
+    }
+
+    <div class="btns-container">
+        @if (isAuth)
+        {
+            <a class="btn btn-primary" asp-area="" asp-controller="Deliveries" asp-action="Index">
+                🚚 Deliveries
+            </a>
+            <a class="btn btn-primary" asp-area="" asp-controller="Units" asp-action="Index">
+                💎 Units
+            </a>
+            <a class="btn btn-primary" asp-area="" asp-controller="Customers" asp-action="Index">
+                🧑‍💼 Customers
+            </a>
+            <a class="btn btn-primary" asp-area="" asp-controller="Items" asp-action="Index">
+                📦 Items
+            </a>
+        } else
+        {
+            <a class="btn btn-primary" href="/Identity/Account/Login">
+                🔑 Login
+            </a>
+            <a class="btn btn-secondary" href="/Identity/Account/Register">
+                📝 Register
+            </a>
+        }
+    </div>
 	
 	<div class="image-container">
 		<img class="courier-img" src="courier.svg" alt="Courier"/>

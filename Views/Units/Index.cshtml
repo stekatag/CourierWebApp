@@ -4,17 +4,16 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Мерни единици</h1>
+<h1>Units</h1>
 
-<p>За да създадете доставка, първо трябва да добавите желаната мерна единица.</p>
+<p>To create a new delivery, you need to create a unit beforehand.</p>
 
-<p>
-	<a asp-action="Create">Добави мерна единица</a>
-</p>
+<div class="d-flex mb-4">
+	<a class="btn btn-primary mr-3" asp-action="Create">Create a new unit</a>
 
-<p>
-	<a class="btn btn-primary" asp-controller="Deliveries" asp-action="Index">Доставки</a>
-</p>
+	<a class="btn btn-outline-primary" asp-controller="Deliveries" asp-action="Index">Back to deliveries</a>
+</div>
+
 <table class="table">
     <thead>
         <tr>

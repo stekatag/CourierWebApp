@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CourierWebApp</title>
+    <title>@ViewData["Title"] - DeliverMate Logistics</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -18,23 +18,30 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-	                    <li class="nav-item">
-		                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
-	                    </li>
-	                    <li class="nav-item">
-		                    <a class="nav-link text-dark" asp-area="" asp-controller="Deliveries" asp-action="Index">Доставки</a>
-	                    </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="Index">Клиенти</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Deliveries" asp-action="Index">Deliveries</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Deliveries" asp-action="ShowSearchForm">Search Delivery</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="Index">Customers</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="Index">Items</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Units" asp-action="Index">Units</a>
+                            </li>
+                        }
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="Index">Стоки</a>
-	                    <li class="nav-item">
-		                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">За проекта</a>
-	                    </li>
-	                    <li class="nav-item">
-		                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Поверителност</a>
-	                    </li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                        </li>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -49,7 +56,9 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - Made for learning purposes only by Stefan Gogov - <a asp-area="" asp-controller="Home" asp-action="About">За проекта</a> <a asp-area="" asp-controller="Home" asp-action="Privacy">Поверителност</a> 
+            &copy; <span class="span-year-footer"></span> - 
+            <a target="_blank" href="https://github.com/stekatag" >Stefan Gogov</a> -
+            <a asp-area="" asp-controller="Home" asp-action="About">About the project</a> 
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -42,7 +42,8 @@ namespace CourierWebApp.Controllers
                 .Include(d => d.Unit)
                 .Include(d => d.DeliveryItems) // Include the join table data
                 .ThenInclude(di => di.Item) // Then include the Item data from the join table
-                .Where(d => d.DeliveryItems.Any(di => di.Item.Name.Contains(SearchPhrase)))
+                .Where(d => d.DeliveryItems.Any(di => di.Item.Name.Contains(SearchPhrase)
+                                                    || di.Item.Description.Contains(SearchPhrase)))
                 .ToListAsync();
 
             return View("Index", deliveries);
@@ -73,7 +74,7 @@ namespace CourierWebApp.Controllers
         public IActionResult Create()
         {
             ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerEmail");
-            ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "Description");
+            ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "Name");
             ViewData["UnitId"] = new SelectList(_context.Unit, "UnitId", "Unit");
             return View();
         }
@@ -103,7 +104,7 @@ namespace CourierWebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerEmail", delivery.CustomerId);
-            ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "Description", delivery.ItemId);
+            ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "Name", delivery.ItemId);
             ViewData["UnitId"] = new SelectList(_context.Unit, "UnitId", "Unit", delivery.UnitId);
             return View(delivery);
         }
@@ -122,7 +123,7 @@ namespace CourierWebApp.Controllers
                 return NotFound();
             }
             ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerEmail", delivery.CustomerId);
-            ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "Description", delivery.ItemId);
+            ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "Name", delivery.ItemId);
             ViewData["UnitId"] = new SelectList(_context.Unit, "UnitId", "Unit", delivery.UnitId);
             return View(delivery);
         }
@@ -160,7 +161,7 @@ namespace CourierWebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerEmail", delivery.CustomerId);
-            ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "Description", delivery.ItemId);
+            ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "Name", delivery.ItemId);
             ViewData["UnitId"] = new SelectList(_context.Unit, "UnitId", "Unit", delivery.UnitId);
             return View(delivery);
         }

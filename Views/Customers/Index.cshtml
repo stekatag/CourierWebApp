@@ -4,11 +4,16 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Customers</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<p>To create a new delivery, you need to create a customer beforehand.</p>
+
+<div class="d-flex mb-4">
+    <a class="btn btn-primary mr-3" asp-action="Create">Create a new customer</a>
+
+    <a class="btn btn-outline-primary" asp-controller="Deliveries" asp-action="Index">Back to deliveries</a>
+</div>
+
 <table class="table">
     <thead>
         <tr>
