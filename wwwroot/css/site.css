@@ -13,6 +13,38 @@ for details on configuring this project to bundle and minify static web assets. 
     max-width: 24rem;
 }
 
+/* Navbar underline on hover transtion*/
+.navbar .navbar-nav .nav-link {
+    color: var(--primary);
+    font-size: 1.1em;
+}
+
+.navbar .navbar-nav .nav-link:hover {
+    color: var(--primary);
+}
+
+.navbar .navbar-nav .nav-item {
+    position: relative;
+}
+
+.navbar .navbar-nav .nav-item::after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: var(--primary);
+    width: 0%;
+    content: "";
+    height: 3px;
+    transition: all 250ms;
+}
+
+.navbar .navbar-nav .nav-item:hover::after {
+    width: 90%;
+}
+/* ------------------------------------------------ */
+
 .btns-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
